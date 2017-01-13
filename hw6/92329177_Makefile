@@ -1,0 +1,30 @@
+#####################################################
+# 02/08/16 Aaron Lam
+# Makefile: Makefile for HW5 ICS53 Winter2015
+# 02/08/16 Aaron Lam: initial solution version
+#####################################################
+CC     = gcc
+DEBUG  = -ggdb -g -DDEBUG
+#CFLAGS = -ansi -Wall -c
+LFLAGS = -Wall
+
+# design names
+DESIGN = hw6_2 hw6_4
+#OBJS = handle_signals.o my_shell.o
+SRCS = hw6_2.c hw6_4.c
+
+all: hw6_2 hw6_4
+	@echo "make finished!"
+
+hw6_2: hw6_2.c
+	$(CC) $(DEBUG) hw6_2.c -o hw6_2
+	$(CC) $(DEBUG) hw6_4.c -o hw6_4
+
+strip: hw6_2.c hw6_4.c
+	$(CC) $(LFLAGS) hw6_2.c -o hw6_2
+	$(CC) $(LFLAGS) hw6_4.c -o hw6_4
+
+#target to clean the directory
+clean:
+	rm -f $(DESIGN)
+	@echo removed: $(DESIGN)

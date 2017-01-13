@@ -1,0 +1,10 @@
+#!/bin/bash
+INPUT=$1
+MANPATH=$PATH
+IFS=:
+for EVNPATH in $MANPATH
+do
+  if [ -a "$EVNPATH/$INPUT" ];then
+    echo "$EVNPATH/$INPUT"
+  fi
+done

@@ -1,0 +1,66 @@
+#!/bin/bash
+DIR=$1
+while [[ $# > 0 ]]
+do
+  key=$1
+  case $key in 
+    -name)
+NAME="$2"
+shift
+;;
+-type)
+TYPE="$2"
+shift
+;;
+-print)
+PRINT=1
+;;
+-exec)
+shift
+EXEC="$@"
+shift
+;;
+esac
+shift
+done
+
+# loop a folder recusively,
+folder_recurse() {
+  for i in "$1"/*
+  do
+    if [ -d "$i" ];then
+      if [[ "$2" == "d" ]];then
+        if [[ $i == $3 ]];then
+          if [ $5 -eq "1" ];then
+            echo $i
+          fi
+          if [ -n "$4" ];then
+            RUN="$( echo $4 | sed "s/{}/"$i"/" )"
+            $RUN
+          fi
+        fi
+      fi
+      folder_recurse "$i" "$2" "$3" "$4" "$5"
+    elif [ -f "$i" ]; then
+      if [[ "$2" == "f" ]];then
+        if [[ $i == $3 ]];then
+          if [ $5 -eq "1" ];then
+            echo $i
+          fi
+          if [ -n "$4" ];then
+            RUN="$( echo $4 | sed "s/{}/"$TEST"/" )"
+            $RUN
+          fi
+        fi
+      fi
+    fi
+  done
+}
+
+if [ -n "$EXEC" ]; then
+  EXEC="$( echo "$EXEC" | sed "s/{}/"$NAME"/" )"
+fi
+if [ -n NAME ]; then
+  NAME="$( echo "$NAME" | sed "s/'//" )"
+fi
+folder_recurse "$DIR" "$TYPE" "$NAME" "$EXEC" "$PRINT"
