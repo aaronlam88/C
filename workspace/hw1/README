@@ -1,0 +1,43 @@
+HW1 REPORT
+
+#################### README ####################
+connectsock.c, connectTCP.c, connectUDP.c, errexit.c, 
+passivesock.c, passiveTCP.c, TCPtime.c, UDPdaytime.c, 
+are based on source code from the book by COMER 
+with small modification. 
+
+Source files are located in src/ folder
+Object files are located in obj/ folder
+
+Run make command to 
+	create object files in obj/ folder
+	create executable files in current folder
+
+Run make clean to clean-up object files and executable files
+
+####################  TEST  ####################
+
+==== test UDPdaytime ====
+$ ./UDPdaytime localhost 13
+03 MAR 2017 06:28:39 UTC
+
+==== test TCPtime ====
+$ ./TCPtime
+Please enter host1 address: time-a.nist.gov
+port1: 37
+Please enter host2 address: utcnist.colorado.edu
+port2: 37
+time-a.nist.gov: Fri Mar  3 06:34:42 2017
+utcnist.colorado.edu: Fri Mar  3 06:34:42 2017
+Time diff: 0
+
+==== test word count client/server ====
+
+$ ./TCPwcServer
+
+$ ./TCPwcClient
+Please enter your string: test string
+Your string: test string
+Local count: 12
+Server count: 12
+####################  END   ####################
